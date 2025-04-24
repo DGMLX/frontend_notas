@@ -14,7 +14,7 @@ const Navbar = () => {
     const {openNav} =useContext(AppContext)
 
     return(
-        <div className={`${openNav ? 'block' : 'hidden'} md:block bg-[#2c4e38] w-3/6 lg:w-1/5 z-50 absolute md:static`}>
+        <div className={`${openNav ? 'block' : 'hidden'} min-h-screen md:block w-3/6 lg:w-1/5 z-50 absolute md:static` } style={{backgroundColor: 'var(--md-sys-color-on-primary)'}}>
             <div className="flex justify-center pt-7">
                 <div className="bg-slate-400 h-30 w-30 rounded-full"></div>
             </div>
@@ -32,10 +32,7 @@ const Navbar = () => {
             </Link>
 
 
-            <div className="flex items-center px-5 mb-7 border-b border-slate-400 pb-5">
-                <IoIosLogOut  className="text-white font-extralight text-2xl mr-5"/>
-                <p className="text-white font-extralight">Cerrar sesión</p>
-            </div>
+     
             
 
         </div>

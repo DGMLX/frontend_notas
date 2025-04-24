@@ -2,6 +2,10 @@ import { useContext, useEffect, useState } from "react"
 import { actualizarNotaRequest, agregarNotaRequest, obtenerCategoriasRequest, obtenerIdCategoriaRequest, obtenerNotasRequest } from "../../axios/consultasAxios"
 import Swal from 'sweetalert2'
 import { AppContext } from "../../context/AppContext"
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { FaRegEdit } from "react-icons/fa";
+
+
 
 const FormularioNotas = () =>{
 
@@ -116,6 +120,7 @@ const FormularioNotas = () =>{
 
     return( 
         <div className="bg-[#f7fbf2] p-5 rounded-2xl shadow-xl">
+
             <h2 className="text-center text-xl mb-10 ">Agrega tus notas</h2>
             <form onSubmit={(e)=>agregarNota(e)}>
                 
@@ -139,7 +144,7 @@ const FormularioNotas = () =>{
                 
                     </select>
                     :
-                    <select name="" id="" className="w-full border border-slate-300 mb-4 py-2" value={categoria}  onChange={(e)=>capturarNuevaCategoria(e)}>
+                    <select name="" id="" className="w-full border border-slate-500 rounded-md mb-4 py-2 " value={categoria}  onChange={(e)=>capturarNuevaCategoria(e)}>
                           <option value={"Selecciona una categoria"} disabled>Selecciona una categoria</option>
                         <option value="Nueva categoria">Agregar nueva categoría</option>
                         {
@@ -168,9 +173,9 @@ const FormularioNotas = () =>{
                 <div className="flex justify-center items-center mt-6 shadow-xl">
                     {
                         editando ?
-                            <button className="bg-[#2c4e38] text-white px-10 py-2 rounded-full w-full hover:bg-[#4b815e] cursor-pointer" onClick={()=>agregarNota()}>Editar Nota</button>
+                            <button className=" text-white px-10 py-2 rounded-full w-full hover:bg-[#4b815e] cursor-pointer  flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar Nota</button>
                         :
-                        <button className="bg-[#2c4e38] text-white px-10 py-2 rounded-full w-full hover:bg-[#4b815e] cursor-pointer" onClick={()=>agregarNota()}>Agregar Nota</button>
+                        <button className=" text-white px-10 py-2 rounded-full w-full hover:bg-[#4b815e] cursor-pointer flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</button>
                         
                     }
                 </div>

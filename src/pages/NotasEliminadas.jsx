@@ -77,7 +77,7 @@ const NotasEliminadas = () =>{
         <div className="flex">
        
             <Navbar/>
-            <main className=" bg-[#a9d0b3] h-lvh px-5 sm:px-10 md:px-20 w-full lg:w-4/5">
+            <main className=" h-lvh px-5 sm:px-10 md:px-20 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
 
                 {
@@ -85,16 +85,22 @@ const NotasEliminadas = () =>{
                     notasEliminadas.map(notaEliminada=>(
                         <div key={notaEliminada.id_notas} className="flex justify-between items-center shadow-xl bg-white p-2 rounded-md transition-all duration-300 mb-5">
                             <div>
-                                <h2 className="font-medium">{notaEliminada.titulo}</h2>
+                                <h2 className="font-bold">{notaEliminada.titulo}</h2>
                                 <div className="flex justify-between">
-                                    <p className="text-xs">{notaEliminada.nombre_categoria}</p>
-                                    <p className="text-xs">{notaEliminada.fecha_creacion}</p>
+                                    <p className="text-xs">Categoria: {notaEliminada.nombre_categoria}</p>
+                                </div>
+                                <div className="flex"> 
+                                    <p className="text-xs mr-5"><span className="font-bold">Creada:</span> {new Date(notaEliminada.fecha_creacion).toISOString().split("T")[0]}</p>
+                                    {
+                                        notaEliminada.fecha_actualizacion &&   <p className="text-xs "><span className="font-bold">Actualizada: </span> {new Date(nota.Eliminada_actualizacion).toISOString().split("T")[0]}</p>
+
+                                    }
                                 </div>
                                 <p className="text-sm">{notaEliminada.descripcion}</p>
                             </div>
-                            <div className="sm:flex ml-5">
-                                <button className="w-5/6 bg-blue-300 mb-1 py-2 px-5 rounded-md hover:bg-blue-400 mr-5 flex items-center cursor-pointer text-md" onClick={()=>restaurarNota(notaEliminada.id_notas)}><MdOutlineRestartAlt/>Restaurar</button>
-                                <button className="w-5/6 bg-red-300 py-2 mt-1 px-5 text-md rounded-md hover:bg-red-400 flex items-center cursor-pointer" onClick={()=>eliminarNota(notaEliminada.id_notas)}><CiTrash/>Eliminar</button>
+                            <div className="sm:flex  ml-5">
+                                <button className="w-5/6 mb-1 sm:mb-0 py-2 px-5 rounded-md hover:bg-blue-400 mr-5 flex items-center cursor-pointer text-md text-white"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>restaurarNota(notaEliminada.id_notas)}><MdOutlineRestartAlt className="mr-1"/>Restaurar</button>
+                                <button className="w-5/6  py-2 mt-1 sm:mt-0 px-5 text-md rounded-md text-white flex items-center cursor-pointer" style={{backgroundColor: 'var(--md-sys-color-error)'}}onClick={()=>eliminarNota(notaEliminada.id_notas)}><CiTrash className="mr-1"/>Eliminar</button>
                             </div>
                         </div>
                     ))
