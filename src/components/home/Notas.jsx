@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { eliminarNotaRequest, obtenerCategoriasRequest, obtenerIdCategoriaRequest, obtenerNotasRequest } from "../../axios/consultasAxios";
+import { eliminarNotaRequest, obtenerCategoriasRequest, obtenerIdCategoriaRequest, obtenerNotasFiltradasRequest, obtenerNotasRequest } from "../../axios/consultasAxios";
 import Swal from 'sweetalert2'
 import { AppContext } from "../../context/AppContext"
 
@@ -10,6 +10,7 @@ const Notas = () =>{
 
     const [categorias,setCategorias] = useState([]);
     const [filtroCategoria,setFiltroCategoria] = useState("");
+    const [menuFiltrado,setMenuFiltrado] = useState([]);
 
     const obtenerData =async () => {
         const {data} = await obtenerNotasRequest();
@@ -52,6 +53,7 @@ const Notas = () =>{
           });
     }
 
+    
     const editarNota = async(nota) =>{
         setTitulo(nota.titulo)
         setDescripcion(nota.descripcion)
@@ -59,14 +61,30 @@ const Notas = () =>{
         setCategoria(data[0].id_categoria)  
         setEditando(true)
         setIdNota(nota.id_notas)
-        
     }
+
+    
+
+    useEffect(()=>{
+        const filtrarCategorias = async()=>{
+            if(filtroCategoria === "todas"){
+                const {data} = await obtenerNotasRequest()
+                setNotas(data)
+            }else{
+                const {data} = await obtenerNotasFiltradasRequest(filtroCategoria)
+                setNotas(data)
+            }
+
+        }
+        filtrarCategorias()
+        
+    },[filtroCategoria])
 
     return(
         <div className="bg-[#f7fbf2] p-5 rounded-2xl shadow-xl">
             <h2 className="text-center text-xl mb-3">Tus notas</h2>
 
-            <select name="" id="" className="w-full border border-slate-300 mb-10 py-2">
+            <select name="" id="" className="w-full border border-slate-300 mb-10 py-2"onChange={(e)=>setFiltroCategoria(e.target.value)}>
                 <option value="" disabled>Selecciona una categoria</option>
                 <option value="todas">Todas las categorias</option>
                 {

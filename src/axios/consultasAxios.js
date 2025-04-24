@@ -4,6 +4,7 @@ export const obtenerNotasRequest = async () => await axios.get("https://backendn
 export const obtenerNotasEliminadasRequest = async () => await axios.get("https://backendnotas-production-1944.up.railway.app/notasEliminadas");
 export const obtenerCategoriasRequest = async () => await axios.get("https://backendnotas-production-1944.up.railway.app/categorias");
 export const obtenerIdCategoriaRequest = async (nombre) => await axios.get(`https://backendnotas-production-1944.up.railway.app/obtenerIdCategoria/${nombre}`);
+export const obtenerNotasFiltradasRequest = async(categoria) => await axios.get(`https://backendnotas-production-1944.up.railway.app/obtenerNotasFiltradas/${categoria}`)
 
 
 export const agregarNotaRequest = async(data) => await axios.post("https://backendnotas-production-1944.up.railway.app/agregarNota",data)

@@ -13,7 +13,7 @@ const HomePage = () =>{
         <div className="flex ">
 
             <Navbar/>
-            <main className="bg-[#a9d0b3] px-5 sm:px-10 md:px-20 w-full md:w-4/5 relative md:static">
+            <main className="bg-[#a9d0b3] h-full px-5 sm:px-10 md:px-20 w-full md:w-4/5 relative md:static">
                 
 
                 <h1 className="text-center text-3xl pt-5 mb-12">Administra tus notas de una manera rápida y fácil</h1>

@@ -77,7 +77,7 @@ const NotasEliminadas = () =>{
         <div className="flex">
        
             <Navbar/>
-            <main className=" bg-[#a9d0b3] px-5 sm:px-10 md:px-20 w-full lg:w-4/5">
+            <main className=" bg-[#a9d0b3] h-lvh px-5 sm:px-10 md:px-20 w-full lg:w-4/5">
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
 
                 {
@@ -93,8 +93,8 @@ const NotasEliminadas = () =>{
                                 <p className="text-sm">{notaEliminada.descripcion}</p>
                             </div>
                             <div className="sm:flex ml-5">
-                                <button className="w-full bg-blue-300 mb-1 py-2 px-5 rounded-md hover:bg-blue-400 mr-5 flex items-center cursor-pointer" onClick={()=>restaurarNota(notaEliminada.id_notas)}><MdOutlineRestartAlt/>Restaurar</button>
-                                <button className="w-full bg-red-300 py-2 mt-1 px-5 rounded-md hover:bg-red-400 flex items-center cursor-pointer" onClick={()=>eliminarNota(notaEliminada.id_notas)}><CiTrash/>Eliminar</button>
+                                <button className="w-5/6 bg-blue-300 mb-1 py-2 px-5 rounded-md hover:bg-blue-400 mr-5 flex items-center cursor-pointer text-md" onClick={()=>restaurarNota(notaEliminada.id_notas)}><MdOutlineRestartAlt/>Restaurar</button>
+                                <button className="w-5/6 bg-red-300 py-2 mt-1 px-5 text-md rounded-md hover:bg-red-400 flex items-center cursor-pointer" onClick={()=>eliminarNota(notaEliminada.id_notas)}><CiTrash/>Eliminar</button>
                             </div>
                         </div>
                     ))
