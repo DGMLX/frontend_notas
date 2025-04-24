@@ -1,15 +1,12 @@
 import { CiStickyNote } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { FaRegChartBar } from "react-icons/fa";
-import { IoIosLogOut } from "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
 
 
-const Navbar = () => {
+const Navbar = ({pathname}) => {
 
     const {openNav} =useContext(AppContext)
 
@@ -23,12 +20,12 @@ const Navbar = () => {
             
             <Link to="/" className="flex items-center px-5 mb-7 border-b border-slate-400 pb-5">
                 <CiStickyNote className="text-white font-extralight text-2xl mr-5"/>
-                <p className="text-white font-extralight">Notas</p>
+                <p className={`text-white font-extralight ${pathname === "/" && 'underline underline-offset-4'}`}>Notas</p>
             </Link>
             
             <Link to="/notasEliminadas" className="flex items-center px-5 mb-7 border-b border-slate-400 pb-5">
                 <AiOutlineDelete className="text-white font-extralight text-2xl mr-5"/>
-                <p className="text-white font-extralight">Notas Eliminadas</p>
+                <p className={`text-white font-extralight ${pathname === "/notasEliminadas" && 'underline underline-offset-4'}`}>Notas Eliminadas</p>
             </Link>
 
 

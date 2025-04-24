@@ -13,7 +13,6 @@ const Notas = () =>{
 
     const [categorias,setCategorias] = useState([]);
     const [filtroCategoria,setFiltroCategoria] = useState("");
-    const [menuFiltrado,setMenuFiltrado] = useState([]);
 
     const obtenerData =async () => {
         const {data} = await obtenerNotasRequest();
@@ -35,14 +34,14 @@ const Notas = () =>{
 
     const eliminarNota = async(id)=>{
         Swal.fire({
-            title: "¿Estas seguro de eliminar esta nota?",
+            title: "¿Estás seguro de eliminar esta nota?",
             text: "",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Si",
-            cancelButtonText:"No"
+            cancelButtonText:"No",
+            confirmButtonText: "Sí",
           }).then(async (result) => {
             if (result.isConfirmed) {
                 await eliminarNotaRequest(id)
@@ -58,6 +57,10 @@ const Notas = () =>{
 
     
     const editarNota = async(nota) =>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
         setTitulo(nota.titulo)
         setDescripcion(nota.descripcion)
         const {data} = await obtenerIdCategoriaRequest(nota.nombre_categoria)
@@ -88,8 +91,8 @@ const Notas = () =>{
             <h2 className="text-center text-xl mb-3 flex justify-center items-center"><CgNotes className="mr-2"/> Tus notas</h2>
 
             <select name="" id="" className="w-full border border-slate-500 rounded-md mb-10 py-2"onChange={(e)=>setFiltroCategoria(e.target.value)}>
-                <option value="" disabled>Selecciona una categoria</option>
-                <option value="todas">Todas las categorias</option>
+                <option value="" disabled>Selecciona una categoría</option>
+                <option value="todas">Todas las categorías</option>
                 {
                     categorias.map(cat=>(
                         <option key={cat.id_categoria} value={cat.nombre_categoria}>{cat.nombre_categoria}</option>
@@ -105,7 +108,7 @@ const Notas = () =>{
                         <div className="mr-5">
                             <h3 className="font-bold">{nota.titulo}</h3>
                             <div >
-                                <p className="text-xs">Categoria: {nota.nombre_categoria}</p>
+                                <p className="text-xs">Categoría: {nota.nombre_categoria}</p>
                             </div>
                             <div className="flex ">
                                 <p className="text-xs mr-5"><span className="font-bold">Creada:</span> {new Date(nota.fecha_creacion).toISOString().split("T")[0]}</p>

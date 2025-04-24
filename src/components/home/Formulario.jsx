@@ -4,6 +4,9 @@ import Swal from 'sweetalert2'
 import { AppContext } from "../../context/AppContext"
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
+import { CiTrash } from "react-icons/ci";
+import { RiCloseLargeLine } from "react-icons/ri";
+
 
 
 
@@ -117,24 +120,38 @@ const FormularioNotas = () =>{
         }
     }
 
+    const cancelarEdit = () =>{
+        setEditando(false)
+        setTitulo("")
+        setDescripcion("")
+        setCategoria("Selecciona una categoria")
+        setValorNuevaCategoria("")
+        setAgregarNuevaCategoria(false)
+    }
 
     return( 
         <div className="bg-[#f7fbf2] p-5 rounded-2xl shadow-xl">
 
-            <h2 className="text-center text-xl mb-10 ">Agrega tus notas</h2>
+            {
+                editando ?
+                <h2 className="text-center text-xl mb-10 ">Edita tus notas</h2>
+                :
+                <h2 className="text-center text-xl mb-10 ">Agrega tus notas</h2>
+            }
+
             <form onSubmit={(e)=>agregarNota(e)}>
                 
                 <label htmlFor="" className="block font-medium mb-2">Título</label>
                 <input type="text" placeholder="Añade un título" className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={titulo} onChange={(e)=>setTitulo(e.target.value)}/>
 
                 <label htmlFor="" className="block font-medium mb-2">Descripción</label>
-                <input type="text" placeholder="Agrega una descripción"  className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={descripcion} onChange={(e)=>setDescripcion(e.target.value)}/>
+                <textarea rows={5}  type="text" placeholder="Agrega una descripción"  className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={descripcion} onChange={(e)=>setDescripcion(e.target.value)}/>
                 
-                <label htmlFor="" className="block font-medium mb-2">Categoria</label>
+                <label htmlFor="" className="block font-medium mb-2">Categoría</label>
                 {
                     agregarNuevaCategoria ?
                     <select name="" id="" className="w-full border border-slate-300 mb-4 py-2" value={"Nueva categoria"}  onChange={(e)=>capturarNuevaCategoria(e)}>  
-                    <option value={"Selecciona una categoria"} disabled>Selecciona una categoria</option>
+                    <option value={"Selecciona una categoria"} disabled>Selecciona una categoría</option>
                     <option value="Nueva categoria" selected>Agregar nueva categoría</option>
                     {
                         categorias.map(cat=>(
@@ -170,12 +187,16 @@ const FormularioNotas = () =>{
                 }
                 
 
-                <div className="flex justify-center items-center mt-6 shadow-xl">
+                <div className="flex justify-center items-center mt-6 ">
                     {
                         editando ?
-                            <button className=" text-white px-10 py-2 rounded-full w-full hover:bg-[#4b815e] cursor-pointer  flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar Nota</button>
+                            <div className="flex justify-between">
+                                <button className=" text-white  px-10 mr-2 py-2 rounded-full w-full cursor-pointer  flex justify-center items-center bg-amber-600 hover:bg-amber-700 active:bg-amber-800" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar </button>
+
+                                <button className=" text-white px-7 py-2 ml-2 rounded-full w-full bg-red-500 hover:bg-red-600 active:bg-red-700 cursor-pointer  flex justify-center items-center"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</button>
+                            </div>
                         :
-                        <button className=" text-white px-10 py-2 rounded-full w-full hover:bg-[#4b815e] cursor-pointer flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</button>
+                        <button className=" text-white px-10  py-2 rounded-full w-full  cursor-pointer flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</button>
                         
                     }
                 </div>

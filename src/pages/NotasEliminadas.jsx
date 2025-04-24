@@ -1,14 +1,15 @@
 import { CiTrash } from "react-icons/ci";
 import { MdOutlineRestartAlt } from "react-icons/md";
 import Swal from 'sweetalert2'
-
-
 import Navbar from "../components/Navbar/Navbar";
 import { useContext, useEffect, useState } from "react";
 import { eliminarNotaDefinitivoRequest, obtenerNotasEliminadasRequest, restaurarNotaRequest } from "../axios/consultasAxios";
 import { AppContext } from "../context/AppContext";
+import { useLocation } from "react-router-dom";
 
 const NotasEliminadas = () =>{
+
+    const {pathname} = useLocation()
 
     const {setOpenNav} = useContext(AppContext)
 
@@ -27,13 +28,13 @@ const NotasEliminadas = () =>{
     const restaurarNota = (id) =>{
 
         Swal.fire({
-            title: "¿Estas seguro de restaurar esta nota?",
+            title: "¿Estás seguro de restaurar esta nota?",
             text: "",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Si",
+            confirmButtonText: "Sí",
             cancelButtonText:"No"
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -50,13 +51,13 @@ const NotasEliminadas = () =>{
 
     const eliminarNota = async(id) =>{
         Swal.fire({
-            title: "¿Estas seguro de eliminar esta nota?",
-            text: "Ten en cuenta eliminación será de forma definitiva",
+            title: "¿Estás seguro de eliminar esta nota?",
+            text: "Ten en cuenta que la eliminación será de forma definitiva",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Si",
+            confirmButtonText: "Sí",
             cancelButtonText:"No"
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -76,8 +77,8 @@ const NotasEliminadas = () =>{
     return(
         <div className="flex">
        
-            <Navbar/>
-            <main className="min-h-screen px-5 sm:px-10 md:px-20 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
+            <Navbar pathname={pathname}/>
+            <main className="min-h-screen px-5 sm:px-10 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
 
                 {
@@ -87,7 +88,7 @@ const NotasEliminadas = () =>{
                             <div>
                                 <h2 className="font-bold">{notaEliminada.titulo}</h2>
                                 <div className="flex justify-between">
-                                    <p className="text-xs">Categoria: {notaEliminada.nombre_categoria}</p>
+                                    <p className="text-xs">Categoría: {notaEliminada.nombre_categoria}</p>
                                 </div>
                                 <div className="flex"> 
                                     <p className="text-xs mr-5"><span className="font-bold">Creada:</span> {new Date(notaEliminada.fecha_creacion).toISOString().split("T")[0]}</p>
