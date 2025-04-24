@@ -77,7 +77,7 @@ const NotasEliminadas = () =>{
         <div className="flex">
        
             <Navbar/>
-            <main className=" h-lvh px-5 sm:px-10 md:px-20 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
+            <main className="min-h-screen px-5 sm:px-10 md:px-20 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
 
                 {
