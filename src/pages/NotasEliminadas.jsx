@@ -92,7 +92,7 @@ const NotasEliminadas = () =>{
                                 <div className="flex"> 
                                     <p className="text-xs mr-5"><span className="font-bold">Creada:</span> {new Date(notaEliminada.fecha_creacion).toISOString().split("T")[0]}</p>
                                     {
-                                        notaEliminada.fecha_actualizacion &&   <p className="text-xs "><span className="font-bold">Actualizada: </span> {new Date(nota.Eliminada_actualizacion).toISOString().split("T")[0]}</p>
+                                        notaEliminada.fecha_actualizacion &&   <p className="text-xs "><span className="font-bold">Actualizada: </span> {new Date(notaEliminada.fecha_actualizacion).toISOString().split("T")[0]}</p>
 
                                     }
                                 </div>
