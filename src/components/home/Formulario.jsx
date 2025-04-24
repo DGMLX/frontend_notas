@@ -6,9 +6,10 @@ import { AppContext } from "../../context/AppContext"
 const FormularioNotas = () =>{
 
    
-    const {agregarNuevaCategoria,setAgregarNuevaCategoria,titulo,setTitulo,descripcion,setDescripcion,categoria,setCategoria,categorias,setCategorias,valorNuevaCategoria,setValorNuevaCategoria,setNotas,editando,setEditando,idNota,setIdNota} = useContext(AppContext)
+    const {agregarNuevaCategoria,setAgregarNuevaCategoria,titulo,setTitulo,descripcion,setDescripcion,categoria,setCategoria,categorias,setCategorias,valorNuevaCategoria,setValorNuevaCategoria,setNotas,editando,setEditando,idNota,setIdNota,setOpenNav} = useContext(AppContext)
 
     useEffect(()=>{
+        setOpenNav(false)
         obtenerCategorias()
     },[])
 

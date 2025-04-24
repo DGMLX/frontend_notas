@@ -6,7 +6,7 @@ import { AppContext } from "../../context/AppContext"
 const Notas = () =>{
 
 
-    const {notas,setNotas,setTitulo,setDescripcion,setCategoria,setEditando,setIdNota} = useContext(AppContext)
+    const {notas,setNotas,setTitulo,setDescripcion,setCategoria,setEditando,setIdNota,setOpenNav} = useContext(AppContext)
 
     const [categorias,setCategorias] = useState([]);
     const [filtroCategoria,setFiltroCategoria] = useState("");
@@ -18,7 +18,7 @@ const Notas = () =>{
     }
 
     useEffect(()=>{
-        
+        setOpenNav(false)
 
         const obtenerCategorias = async()=>{
             const {data} = await obtenerCategoriasRequest()
