@@ -9,7 +9,7 @@ const Navbar = ({pathname}) => {
     const {openNav} =useContext(AppContext)
 
     return(
-        <div className={`${openNav ? 'block' : 'hidden'} min-h-screen md:block w-3/6 lg:w-1/5 z-50 absolute md:static` } style={{backgroundColor: 'var(--md-sys-color-on-primary)'}}>
+        <div  className={`transition-all duration-300 ease-in-out transform ${openNav ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'} min-h-screen md:translate-x-0 md:opacity-100 md:block w-3/6 lg:w-1/5 z-50 absolute md:static`} style={{backgroundColor: 'var(--md-sys-color-on-primary)'}}>
             <div className="flex justify-center pt-7">
                 <div className="bg-slate-400 h-30 w-30 rounded-full"></div>
             </div>
