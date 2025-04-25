@@ -12,10 +12,13 @@ const NotasEliminadas = () =>{
     const {pathname} = useLocation()
     const {setOpenNav} = useContext(AppContext)
     const [notasEliminadas,setNotasEliminadas] = useState([]);
+    const [loading,setLoading] = useState(false);
 
     const obtenerNotasEliminadas = async()=>{
+        setLoading(true)
         const {data} = await obtenerNotasEliminadasRequest();
         setNotasEliminadas(data);
+        setLoading(false)
     }
 
     useEffect(()=>{
@@ -63,6 +66,11 @@ const NotasEliminadas = () =>{
             <main className="min-h-screen px-5 sm:px-10 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
                 {
+                    loading ?
+                    <div className="flex justify-center">
+                        <div className="loader"></div>
+                    </div>
+                    :
                     notasEliminadas.length !== 0 ?
                     notasEliminadas.map(notaEliminada=>(
                         <div key={notaEliminada.id_notas} className="flex justify-between items-center shadow-xl bg-white p-2 rounded-md transition-all duration-300 mb-5">
