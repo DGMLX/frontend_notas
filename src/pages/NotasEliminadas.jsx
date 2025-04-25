@@ -93,4 +93,6 @@ const NotasEliminadas = () =>{
     )
 }
 
+
 export default NotasEliminadas;
+
