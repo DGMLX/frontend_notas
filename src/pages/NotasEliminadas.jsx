@@ -7,6 +7,8 @@ import { eliminarNotaDefinitivoRequest, obtenerNotasEliminadasRequest, restaurar
 import { AppContext } from "../context/AppContext";
 import { useLocation } from "react-router-dom";
 
+import { Button } from "@/components/ui/button"
+
 const NotasEliminadas = () =>{
 
     const {pathname} = useLocation()
@@ -63,7 +65,7 @@ const NotasEliminadas = () =>{
     return(
         <div className="flex">       
             <Navbar pathname={pathname}/>
-            <main className="min-h-screen px-5 sm:px-10 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
+            <main className="min-h-screen px-5 sm:px-10 w-full lg:w-4/5  bg-slate-300" >
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
                 {
                     loading ?
@@ -87,9 +89,11 @@ const NotasEliminadas = () =>{
                                 </div>
                                 <p className="text-sm">{notaEliminada.descripcion}</p>
                             </div>
-                            <div className="sm:flex  ml-5">
-                                <button className="w-5/6 mb-1 sm:mb-0 py-2 px-5 rounded-md hover:bg-blue-400 mr-5 flex items-center cursor-pointer text-md text-white"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>restaurarNota(notaEliminada.id_notas)}><MdOutlineRestartAlt className="mr-1"/>Restaurar</button>
-                                <button className="w-5/6  py-2 mt-1 sm:mt-0 px-5 text-md rounded-md text-white flex items-center cursor-pointer" style={{backgroundColor: 'var(--md-sys-color-error)'}}onClick={()=>eliminarNota(notaEliminada.id_notas)}><CiTrash className="mr-1"/>Eliminar</button>
+                            <div className="lg:flex  ml-5">
+                    
+                                <Button className=" text-white w-full lg:w-auto mr-4 py-2 mt-1 lg:mt-0 px-5 text-md rounded-md  flex items-center cursor-pointer" onClick={()=>restaurarNota(notaEliminada.id_notas)}variant="secondary"><MdOutlineRestartAlt className="mr-1" />Restaurar</Button>
+                                <Button className="w-full lg:w-auto py-2 mt-1 lg:mt-0 px-5 text-md rounded-md text-white flex items-center cursor-pointer" onClick={()=>eliminarNota(notaEliminada.id_notas)} variant="destructive"><CiTrash className="mr-1"/>Eliminar</Button>
+
                             </div>
                         </div>
                     ))

@@ -7,6 +7,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { CgNotes } from "react-icons/cg";
 import Paginacion from "../Paginacion";
 
+import { Button } from "@/components/ui/button"
+
 const Notas = () =>{
 
     const {notas,setNotas,setTitulo,setDescripcion,setCategoria,setEditando,setIdNota,setOpenNav,notasList,setNotasList,paginaActual,setPaginaActual} = useContext(AppContext)
@@ -123,10 +125,10 @@ const Notas = () =>{
                             </div>
                             <div>
                                 <div className="flex justify-center mb-3">
-                                    <button className=" px-2 rounded-lg cursor-pointer text-white flex items-center py-1" style={{backgroundColor: 'var(--md-sys-color-error)'}} onClick={()=>eliminarNota(nota.id_notas)}><CiTrash className="mr-1"/>Eliminar</button>
+                                    <Button className="px-2 rounded-lg cursor-pointer text-white flex items-center py-1 " variant="destructive" onClick={()=>eliminarNota(nota.id_notas)}><CiTrash className="mr-1"/>Eliminar</Button>
                                 </div>
                                 <div className="flex justify-center mt-3">
-                                    <button className="px-4 rounded-lg cursor-pointer text-white flex items-center py-1"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>editarNota(nota)} ><FaRegEdit className="mr-1"/>Editar</button>
+                                    <Button className="text-white w-full rounded-lg cursor-pointer flex items-center py-1 " variant="secondary" onClick={()=>editarNota(nota)}><FaRegEdit className="mr-1"/>Editar</Button>
                                 </div>
                             </div>
                         </div>

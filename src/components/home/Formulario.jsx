@@ -6,6 +6,18 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import { RiCloseLargeLine } from "react-icons/ri";
 
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
+
+
 const FormularioNotas = () =>{
 
     const {agregarNuevaCategoria,setAgregarNuevaCategoria,titulo,setTitulo,descripcion,setDescripcion,categoria,setCategoria,categorias,setCategorias,valorNuevaCategoria,setValorNuevaCategoria,setNotas,editando,setEditando,idNota,setIdNota,setOpenNav,notasList,setNotasList,paginaActual,setPaginaActual} = useContext(AppContext)
@@ -118,12 +130,16 @@ const FormularioNotas = () =>{
             }
             <form onSubmit={(e)=>agregarNota(e)}>   
                 <label htmlFor="" className="block font-medium mb-2">Título</label>
-                <input type="text" placeholder="Añade un título" className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={titulo} onChange={(e)=>setTitulo(e.target.value)}/>
+                
+                <Input type="text" placeholder="Añade un título" className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2"  value={titulo} onChange={(e)=>setTitulo(e.target.value)}/>
                 <label htmlFor="" className="block font-medium mb-2">Descripción</label>
-                <textarea rows={5}  type="text" placeholder="Agrega una descripción"  className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={descripcion} onChange={(e)=>setDescripcion(e.target.value)}/>
+                
+                <Textarea  type="text" placeholder="Agrega una descripción"  className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={descripcion} onChange={(e)=>setDescripcion(e.target.value)}/>
                 <label htmlFor="" className="block font-medium mb-2">Categoría</label>
                 {
                     agregarNuevaCategoria ?
+
+                     
                     <select name="" id="" className="w-full border border-slate-300 mb-4 py-2" value={"Nueva categoria"}  onChange={(e)=>capturarNuevaCategoria(e)}>  
                     <option value={"Selecciona una categoria"} disabled>Selecciona una categoría</option>
                     <option value="Nueva categoria" selected>Agregar nueva categoría</option>
@@ -134,6 +150,7 @@ const FormularioNotas = () =>{
                     }
                     </select>
                     :
+              
                     <select name="" id="" className="w-full border border-slate-500 rounded-md mb-4 py-2 " value={categoria}  onChange={(e)=>capturarNuevaCategoria(e)}>
                           <option value={"Selecciona una categoria"} disabled>Selecciona una categoria</option>
                         <option value="Nueva categoria">Agregar nueva categoría</option>
@@ -156,13 +173,15 @@ const FormularioNotas = () =>{
                 <div className="flex justify-center items-center mt-6 ">
                     {
                         editando ?
-                            <div className="flex justify-between">
-                                <button className=" text-white px-7 md:px-10 mr-2 py-2 rounded-full w-full cursor-pointer  flex justify-center items-center bg-amber-600 hover:bg-amber-700 active:bg-amber-800" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar </button>
+                            <div className="flex justify-center">
 
-                                <button className=" text-white px-4 md:px-7 py-2 ml-2 rounded-full w-full bg-red-500 hover:bg-red-600 active:bg-red-700 cursor-pointer  flex justify-center items-center"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</button>
+                                <Button className=" text-white px-7 md:px-10 mr-2 py-2 rounded-full w-full cursor-pointer  flex justify-center items-center" variant="secondary" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar</Button>
+                                
+                                <Button className=" text-white px-4 md:px-7 py-2 ml-2 rounded-full w-full cursor-pointer  flex justify-center items-center" variant="destructive"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</Button>
                             </div>
                         :
-                        <button className=" text-white px-10  py-2 rounded-full w-full  cursor-pointer flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</button>       
+
+                        <Button className=" text-white px-10  py-2 rounded-full w-full  cursor-pointer flex justify-center items-center" variant="secondary" onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</Button>    
                     }
                 </div>
             </form>

@@ -10,7 +10,7 @@ const HomePage = () =>{
     return(
         <div className="flex">
             <Navbar pathname={pathname}/>
-            <main className="min-h-screen px-5 sm:px-10  w-full md:w-4/5 relative md:static" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
+            <main className=" min-h-screen px-5 sm:px-10  w-full md:w-4/5 relative md:static bg-slate-300" >
                 <h1 className="text-center text-3xl pt-5 mb-7">Administra tus notas de una manera rápida y fácil</h1>
                 <div className=" lg:flex justify-between ">
                     <div className="w-full lg:w-2/3">
@@ -21,6 +21,7 @@ const HomePage = () =>{
                     </div>
                 </div>
             </main>
+        
         </div>
     )
 }
