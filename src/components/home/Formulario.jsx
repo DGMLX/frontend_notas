@@ -4,16 +4,11 @@ import Swal from 'sweetalert2'
 import { AppContext } from "../../context/AppContext"
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
-import { CiTrash } from "react-icons/ci";
 import { RiCloseLargeLine } from "react-icons/ri";
-
-
-
 
 const FormularioNotas = () =>{
 
-   
-    const {agregarNuevaCategoria,setAgregarNuevaCategoria,titulo,setTitulo,descripcion,setDescripcion,categoria,setCategoria,categorias,setCategorias,valorNuevaCategoria,setValorNuevaCategoria,setNotas,editando,setEditando,idNota,setIdNota,setOpenNav} = useContext(AppContext)
+    const {agregarNuevaCategoria,setAgregarNuevaCategoria,titulo,setTitulo,descripcion,setDescripcion,categoria,setCategoria,categorias,setCategorias,valorNuevaCategoria,setValorNuevaCategoria,setNotas,editando,setEditando,idNota,setIdNota,setOpenNav,notasList,setNotasList,paginaActual,setPaginaActual} = useContext(AppContext)
 
     useEffect(()=>{
         setOpenNav(false)
@@ -33,7 +28,6 @@ const FormularioNotas = () =>{
             setAgregarNuevaCategoria(false)
             setCategoria(e.target.value)
         }
-
     }
 
     const agregarNota =async (e)=>{
@@ -42,35 +36,28 @@ const FormularioNotas = () =>{
         if(editando){
             if(titulo === "" || descripcion === "" || (categoria === "" && valorNuevaCategoria === "" )){
                 return Swal.fire({
-                    title: "Error al agregar la nota",
-                    text: "Todos los campos son obligatorios",
-                    icon: "error"
+                    title: "Todos los campos son obligatorios",
+                    icon: "error",
+                    timer:1000
                 });
             }
             if(agregarNuevaCategoria){
                 nota = {
-                    id:idNota,
-                    titulo,
-                    descripcion,
-                    categoria: valorNuevaCategoria,
-                }
-
+                    id:idNota,titulo,descripcion,categoria: valorNuevaCategoria,}
             }else{
-                nota = {
-                    id:idNota,
-                    titulo,
-                    descripcion,
-                    categoria,
-                }
+                nota = {id:idNota,titulo,descripcion,categoria,}
             }
             await actualizarNotaRequest(nota)
             const {data} = await obtenerNotasRequest();
             setNotas(data)
-          
+            const ultimaNotaIndex = paginaActual * 3; 
+            const primeraNotaIndex = ultimaNotaIndex - 3
+            const notasActuales = data.slice(primeraNotaIndex,ultimaNotaIndex)
+            setNotasList(notasActuales)
             Swal.fire({
                 title: "Nota editada",
-                text: "Nota editada exitosamente",
-                icon: "success"
+                icon: "success",
+                timer:800
             });
             setEditando(false)
             setTitulo("")
@@ -78,39 +65,31 @@ const FormularioNotas = () =>{
             setCategoria("Selecciona una categoria")
             setValorNuevaCategoria("")
             setAgregarNuevaCategoria(false)
-     
         }else{
-
-      
             if(agregarNuevaCategoria){
-                nota = {
-                    titulo,
-                    descripcion,
-                    categoria: valorNuevaCategoria,
-                }
+                nota = {titulo,descripcion,categoria: valorNuevaCategoria}
             }else{
-                nota = {
-                    titulo,
-                    descripcion,
-                    categoria,
-                }
+                nota = {titulo,descripcion,categoria}
             }
-        
             if(titulo === "" || descripcion === "" || (categoria === "" && valorNuevaCategoria === "" )){
                 return Swal.fire({
-                    title: "Error al agregar la nota",
-                    text: "Todos los campos son obligatorios",
-                    icon: "error"
+                    title: "Todos los campos son obligatorios",
+                    icon: "error",
+                    timer:800
                 });
             }
             await agregarNotaRequest(nota)
             const {data} = await obtenerNotasRequest();
             setNotas(data)
+            const ultimaNotaIndex = paginaActual * 3; 
+            const primeraNotaIndex = ultimaNotaIndex - 3
+            const notasActuales = data.slice(primeraNotaIndex,ultimaNotaIndex)
+            setNotasList(notasActuales)
             await obtenerCategorias()
             Swal.fire({
                 title: "Nota agregada",
-                text: "Nota agregada exitosamente",
-                icon: "success"
+                icon: "success",
+                timer:800
             });
             setTitulo("")
             setDescripcion("")
@@ -131,22 +110,17 @@ const FormularioNotas = () =>{
 
     return( 
         <div className="bg-[#f7fbf2] p-5 rounded-2xl shadow-xl">
-
             {
                 editando ?
                 <h2 className="text-center text-xl mb-10 ">Edita tus notas</h2>
                 :
                 <h2 className="text-center text-xl mb-10 ">Agrega tus notas</h2>
             }
-
-            <form onSubmit={(e)=>agregarNota(e)}>
-                
+            <form onSubmit={(e)=>agregarNota(e)}>   
                 <label htmlFor="" className="block font-medium mb-2">Título</label>
                 <input type="text" placeholder="Añade un título" className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={titulo} onChange={(e)=>setTitulo(e.target.value)}/>
-
                 <label htmlFor="" className="block font-medium mb-2">Descripción</label>
                 <textarea rows={5}  type="text" placeholder="Agrega una descripción"  className="w-full block border border-slate-500 py-1 px-2 rounded-md mb-2" value={descripcion} onChange={(e)=>setDescripcion(e.target.value)}/>
-                
                 <label htmlFor="" className="block font-medium mb-2">Categoría</label>
                 {
                     agregarNuevaCategoria ?
@@ -158,7 +132,6 @@ const FormularioNotas = () =>{
                             <option key={cat.id_categoria} value={cat.id_categoria}>{cat.nombre_categoria}</option>
                         ))
                     }
-                
                     </select>
                     :
                     <select name="" id="" className="w-full border border-slate-500 rounded-md mb-4 py-2 " value={categoria}  onChange={(e)=>capturarNuevaCategoria(e)}>
@@ -169,13 +142,8 @@ const FormularioNotas = () =>{
                                 <option key={cat.id_categoria} value={cat.id_categoria}>{cat.nombre_categoria}</option>
                             ))
                         }
-                    
                     </select>
                 }
-               
-                    
-           
-
                 {
                     agregarNuevaCategoria ?
                         <>
@@ -185,22 +153,18 @@ const FormularioNotas = () =>{
                     :
                     ''
                 }
-                
-
                 <div className="flex justify-center items-center mt-6 ">
                     {
                         editando ?
                             <div className="flex justify-between">
-                                <button className=" text-white  px-10 mr-2 py-2 rounded-full w-full cursor-pointer  flex justify-center items-center bg-amber-600 hover:bg-amber-700 active:bg-amber-800" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar </button>
+                                <button className=" text-white px-7 md:px-10 mr-2 py-2 rounded-full w-full cursor-pointer  flex justify-center items-center bg-amber-600 hover:bg-amber-700 active:bg-amber-800" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar </button>
 
-                                <button className=" text-white px-7 py-2 ml-2 rounded-full w-full bg-red-500 hover:bg-red-600 active:bg-red-700 cursor-pointer  flex justify-center items-center"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</button>
+                                <button className=" text-white px-4 md:px-7 py-2 ml-2 rounded-full w-full bg-red-500 hover:bg-red-600 active:bg-red-700 cursor-pointer  flex justify-center items-center"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</button>
                             </div>
                         :
-                        <button className=" text-white px-10  py-2 rounded-full w-full  cursor-pointer flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</button>
-                        
+                        <button className=" text-white px-10  py-2 rounded-full w-full  cursor-pointer flex justify-center items-center"  style={{backgroundColor: 'var(--md-sys-color-on-primary)'}} onClick={()=>agregarNota()}><IoMdAddCircleOutline className="text-xl mr-3 "/>Agregar Nota</button>       
                     }
                 </div>
-
             </form>
         </div>
     )

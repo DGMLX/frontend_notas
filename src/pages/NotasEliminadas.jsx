@@ -10,9 +10,7 @@ import { useLocation } from "react-router-dom";
 const NotasEliminadas = () =>{
 
     const {pathname} = useLocation()
-
     const {setOpenNav} = useContext(AppContext)
-
     const [notasEliminadas,setNotasEliminadas] = useState([]);
 
     const obtenerNotasEliminadas = async()=>{
@@ -25,28 +23,15 @@ const NotasEliminadas = () =>{
         obtenerNotasEliminadas()
     },[])
 
-    const restaurarNota = (id) =>{
-
-        Swal.fire({
-            title: "¿Estás seguro de restaurar esta nota?",
-            text: "",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sí",
-            cancelButtonText:"No"
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                await restaurarNotaRequest(id)
-                await obtenerNotasEliminadas()            
+    const restaurarNota = async(id) =>{
+            await restaurarNotaRequest(id)
+            await obtenerNotasEliminadas()            
             Swal.fire({
                 title: "Restaurada",
-                text: "Tu nota ha sido restaurada.",
-                icon: "success"
+                icon: "success",
+                timer:800
             });
-            }
-        });
+            ;
     }
 
     const eliminarNota = async(id) =>{
@@ -61,26 +46,22 @@ const NotasEliminadas = () =>{
             cancelButtonText:"No"
         }).then(async (result) => {
             if (result.isConfirmed) {
-             
             await eliminarNotaDefinitivoRequest(id)
             await obtenerNotasEliminadas()     
             Swal.fire({
                 title: "Eliminada",
-                text: "Tu nota ha sido eliminada de forma exitosa.",
-                icon: "success"
+                icon: "success",
+                timer:800
             });
             }
         });      
     }
 
-
     return(
-        <div className="flex">
-       
+        <div className="flex">       
             <Navbar pathname={pathname}/>
             <main className="min-h-screen px-5 sm:px-10 w-full lg:w-4/5" style={{backgroundColor: 'var(--md-sys-color-secondary)'}}>
                 <h1 className="text-center text-3xl pt-5 mb-12">Notas Eliminadas</h1>
-
                 {
                     notasEliminadas.length !== 0 ?
                     notasEliminadas.map(notaEliminada=>(
@@ -94,7 +75,6 @@ const NotasEliminadas = () =>{
                                     <p className="text-xs mr-5"><span className="font-bold">Creada:</span> {new Date(notaEliminada.fecha_creacion).toISOString().split("T")[0]}</p>
                                     {
                                         notaEliminada.fecha_actualizacion &&   <p className="text-xs "><span className="font-bold">Actualizada: </span> {new Date(notaEliminada.fecha_actualizacion).toISOString().split("T")[0]}</p>
-
                                     }
                                 </div>
                                 <p className="text-sm">{notaEliminada.descripcion}</p>
@@ -107,10 +87,7 @@ const NotasEliminadas = () =>{
                     ))
                     :
                     <h2>No hay notas eliminadas</h2>
-                }
-
-                
-                
+                }                
             </main>
         </div>
     )

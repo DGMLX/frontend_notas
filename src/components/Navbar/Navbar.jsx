@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
-
-
 const Navbar = ({pathname}) => {
 
     const {openNav} =useContext(AppContext)
@@ -17,21 +15,14 @@ const Navbar = ({pathname}) => {
             </div>
             <p className="text-center text-white mt-2">Diego Altamirano</p>
             <p className="text-center text-white text-sm mb-10">Desarrollador de software</p>
-            
             <Link to="/" className="flex items-center px-5 mb-7 border-b border-slate-400 pb-5">
                 <CiStickyNote className="text-white font-extralight text-2xl mr-5"/>
                 <p className={`text-white font-extralight ${pathname === "/" && 'underline underline-offset-4'}`}>Notas</p>
-            </Link>
-            
+            </Link>       
             <Link to="/notasEliminadas" className="flex items-center px-5 mb-7 border-b border-slate-400 pb-5">
                 <AiOutlineDelete className="text-white font-extralight text-2xl mr-5"/>
                 <p className={`text-white font-extralight ${pathname === "/notasEliminadas" && 'underline underline-offset-4'}`}>Notas Eliminadas</p>
             </Link>
-
-
-     
-            
-
         </div>
     )
 }
