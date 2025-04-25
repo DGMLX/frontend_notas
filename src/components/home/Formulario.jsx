@@ -175,9 +175,9 @@ const FormularioNotas = () =>{
                         editando ?
                             <div className="flex justify-center">
 
-                                <Button className=" text-white px-7 md:px-10 mr-2 py-2 rounded-full w-full cursor-pointer  flex justify-center items-center" variant="secondary" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar</Button>
+                                <Button className=" text-white px-7 md:px-10 mr-2 py-2 rounded-full w-3/5 cursor-pointer  flex justify-center items-center" variant="secondary" onClick={()=>agregarNota()}><FaRegEdit className="text-xl mr-3"/>Editar</Button>
                                 
-                                <Button className=" text-white px-4 md:px-7 py-2 ml-2 rounded-full w-full cursor-pointer  flex justify-center items-center" variant="destructive"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</Button>
+                                <Button className=" text-white px-4 md:px-7 py-2 ml-2 rounded-full w-3/5 cursor-pointer  flex justify-center items-center" variant="destructive"  onClick={()=>cancelarEdit()}><RiCloseLargeLine className="text-xl mr-3"/>Cancelar</Button>
                             </div>
                         :
 
